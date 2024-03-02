@@ -3,6 +3,20 @@
 #include <math.h>
 #include <iostream>
 #include <stdlib.h>
+#include <time.h>
+#define RESET "\033[0m"
+
+const char* obterCor(int numero);
+const char* obterCorAleatoria();
+
+int randint(int min, int max) {
+    // Inicializa a semente para a função rand()
+    
+    // Gera um número aleatório no intervalo [min, max]
+    int random_number = min + rand() % (max - min + 1);
+    return random_number;
+}
+
 using namespace std;
 
 // Definindo o tipo Item e a classe No antes de sua utilização
@@ -136,15 +150,17 @@ class Arvore{
 
 			return 1 + max(left, right);
 		}
+		int maximoDeNos(){
+			return  pow(2,calcularAlturaArvore(raiz)) - 1;
+		}
 		
-		// int arvcompleta(){
-			
-		// }
+		int arvcompleta(){
+			return calcularQtdNos(raiz) >= calcularAlturaArvore(raiz) + 1 && calcularQtdNos(raiz) <= maximoDeNos();
+		}
 		
-		// int arvcheia(){
-			
-			
-		// }
+		int arvcheia(){
+			return maximoDeNos() == calcularQtdNos(raiz);
+		}
 		// void reduce(){
 
 		// }
@@ -154,16 +170,18 @@ class Arvore{
 			if(ehNulo(no)){
 				return;
 			}
+			string cor = obterCorAleatoria();
 
-			cout << no->valor;
+			cout << " " << no->valor << " ";
 			
-			cout << " < ";
+			cout << cor << " <" << RESET;
 			preordem(no->left);
-			cout << " > ";
+			cout << cor << "> " << RESET;
 
-			cout << " < ";
+
+			cout << cor << " <" << RESET;
 			preordem(no->right);
-			cout << " >";
+			cout << cor << "> " << RESET;
 	    }
 	    
 	    void posordem(No *no){ //Esquerda -> Direita -> Raiz
@@ -196,16 +214,56 @@ class Arvore{
 			limpar(no->left);
 			limpar(no->right);
 			delete(no);
+			no = NULL;
 		}
 };
 
+#define BLACK "\033[0;30m"
+#define RED "\033[0;31m"
+#define GREEN "\033[0;32m"
+#define YELLOW "\033[0;33m"
+#define BLUE "\033[0;34m"
+#define PURPLE "\033[0;35m"
+#define CYAN "\033[0;36m"
+#define WHITE "\033[0;37m"
+
+const char* obterCorAleatoria() {
+    return obterCor(randint(1,8));
+}
+
+
+const char* obterCor(int numero) {
+	
+    switch(numero) {
+        case 1:
+            return BLACK;
+        case 2:
+            return RED;
+        case 3:
+            return GREEN;
+        case 4:
+            return YELLOW;
+        case 5:
+            return BLUE;
+        case 6:
+            return PURPLE;
+        case 7:
+            return CYAN;
+        case 8:
+        default:
+            return WHITE; // Retorna uma string vazia se o número não corresponder a nenhuma cor
+    }
+}
 int main(){
+    srand(time(NULL));
 	Arvore *arvore= new Arvore();
 	arvore->criaNo('G');
 	arvore->criaNo('C');
 	arvore->criaNo('A');
+	arvore->criaNo('V');
+	arvore->criaNo('Z');
 	arvore->criaNo('D');
-	cout << "A altura da árvore é: " << arvore->calcularAlturaArvore(arvore->raiz);
+	cout << "A altura da árvore é: " << arvore->calcularAlturaArvore(arvore->raiz) << "\n";
 	arvore->preordem(arvore->raiz);
 	arvore->limpar(arvore->raiz);
 }
