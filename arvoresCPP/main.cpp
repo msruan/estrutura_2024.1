@@ -1,7 +1,8 @@
 #include "classes/No.hpp"
 #include "classes/Arvore.hpp"
-#include <vector>
 #include <string>
+#include <iostream>
+#include <stdlib.h>
 #include "utils.h"
 using namespace std;
 
@@ -13,9 +14,9 @@ int main(){
 
 	// }
 	arvore->criaNo('A');
-	arvore->criaNo('D');
-	arvore->criaNo('Z');
-	arvore->criaNo('B');
-	arvore->preordem(arvore->raiz);
+	// arvore->criaNo('D');
+	// arvore->criaNo('Z');
+	// arvore->criaNo('B');
+	// arvore->preordem(arvore->raiz);
 	arvore->limpar(arvore->raiz);
 }

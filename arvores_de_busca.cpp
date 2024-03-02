@@ -3,28 +3,9 @@
 #include <math.h>
 #include <iostream>
 #include <stdlib.h>
-#include "No.hpp"
 using namespace std;
 
-int main(){
-	Arvore *arvore= new Arvore();
-	// while(true){
-	// 	if(arvore->isEmpty())
-	// 		string menu = gerar_menu("Arvores de Busca","Criar arvore, Sair");
-
-	// }
-	arvore->criaNo('A');
-	// arvore->criaNo('D');
-	// arvore->criaNo('Z');
-	// arvore->criaNo('B');
-	// arvore->preordem(arvore->raiz);
-	arvore->limpar(arvore->raiz);
-}
-#ifndef NO_HPP
-#define NO_HPP
-
-#include <stdio.h>
-#define if
+// Definindo o tipo Item e a classe No antes de sua utilização
 #define Item char
 class No{
     public:
@@ -37,29 +18,9 @@ class No{
 			right=NULL;
 		}
 };
-/*
-    se atual nao nula
-        compare com o valor da atual
 
-            se novo maior que atual
-
-                se direita for nula
-                    direita recebe novo
-                    quebre o loop
-                senao
-                    atual recebe direita
-                    proxima volta
-                    
-            senao
-                se esquerda for nula
-                    esquerda recebe novo
-                    quebre o loop
-                senao
-                    atual recebe esquerda
-                    proxima volta
-
-*/
-#endif
+// Removendo definição desnecessária de 'if'
+// #define if
 
 class Arvore{
 	public:
@@ -81,7 +42,6 @@ class Arvore{
 	   		return (raiz==NULL);
 		}
 		
-			
 		void criaNo(Item item){
 
 			No *novo= new No(item);
@@ -89,9 +49,6 @@ class Arvore{
 		} 
 		
 		void inserirSemRecursao(No *novo){
-
-			// if(ehNulo(novo))
-			// 	exit(1);//vsf se tu tentar passar algo nulo
 			
 			if(isEmpty())
 				raiz = novo;
@@ -162,21 +119,22 @@ class Arvore{
 			return quant;
 		}
 
+		int max(int a, int b){
+			if(a > b)
+				return a;
+			else
+				return b;
+		}
+
 		int calcularAlturaArvore(No *no){
 
 			if(ehNulo(no))
 				return 0;
 
-			int quant = 1;
-			int left = calcularQtdNos(no->left);
-			int right = calcularQtdNos(no->right);
+			int left = calcularAlturaArvore(no->left); // Corrigindo chamada recursiva
+			int right = calcularAlturaArvore(no->right); // Corrigindo chamada recursiva
 
-			if(left>right)//quero q o pai saiba qual ramo dele tem mais filhos
-				quant += left;
-			else 
-				quant += right;
-
-			return quant;
+			return 1 + max(left, right);
 		}
 		
 		// int arvcompleta(){
@@ -208,7 +166,7 @@ class Arvore{
 			cout << " >";
 	    }
 	    
-	    void posordem(No *no){ //Esquerda -> Direita -> Rai
+	    void posordem(No *no){ //Esquerda -> Direita -> Raiz
 			
 			if(ehNulo(no)){
 				cout << "NULL";
@@ -240,3 +198,14 @@ class Arvore{
 			delete(no);
 		}
 };
+
+int main(){
+	Arvore *arvore= new Arvore();
+	arvore->criaNo('G');
+	arvore->criaNo('C');
+	arvore->criaNo('A');
+	arvore->criaNo('D');
+	cout << "A altura da árvore é: " << arvore->calcularAlturaArvore(arvore->raiz);
+	arvore->preordem(arvore->raiz);
+	arvore->limpar(arvore->raiz);
+}

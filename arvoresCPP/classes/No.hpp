@@ -1,4 +1,8 @@
+#ifndef NO_HPP
+#define NO_HPP
+
 #include <stdio.h>
+#define if
 #define Item char
 class No{
     public:
@@ -11,7 +15,6 @@ class No{
 			right=NULL;
 		}
 };
-
 /*
     se atual nao nula
         compare com o valor da atual
@@ -34,3 +37,4 @@ class No{
                     proxima volta
 
 */
+#endif
