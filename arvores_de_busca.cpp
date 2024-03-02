@@ -47,6 +47,59 @@ class Arvore{
 			quantNos=0;
 			altura=0;
 		}
+		int tem1Filhos(No *no){
+
+    		if(ehFolha(no))
+				return false;
+			return tem2filhos(no) == false;
+		}
+
+		int tem2filhos(No *no){
+
+			if(ehFolha(no))
+				return false;
+			return not ehNulo(no->left) && not ehNulo(no->right);
+		}
+
+		int ehFolha(No* no){
+			return(no->left == NULL && no->right == NULL);
+		}
+
+		int ehPenultimoNivel(No *no){
+
+			if(not ehNulo(no->right) && ehFolha(no->right))
+				return true;
+
+			if(not ehNulo(no->left) && ehFolha(no->left))
+				return true;
+			
+			return false;
+		}
+
+
+		int ehCompleta(No* no) {
+			
+			if(isEmpty())
+				return false;
+
+			if(ehFolha(no))
+				return true;
+
+			if(tem2filhos(no)){
+				bool completa = ehCompleta(no->left);
+				completa = completa && ehCompleta(no->right);
+				return completa;
+			}
+			
+			if(tem1Filhos(no)){
+				if(not ehPenultimoNivel(no))
+					return false;
+				else 
+					return  true;
+			}
+
+			return false;
+		}
 
 		static int ehNulo(No* no){
 			return no == NULL;
@@ -150,12 +203,16 @@ class Arvore{
 
 			return 1 + max(left, right);
 		}
+		int minimoDeNos(){
+			return 1 + (int) log(maximoDeNos());
+		}
 		int maximoDeNos(){
 			return  pow(2,calcularAlturaArvore(raiz)) - 1;
 		}
 		
 		int arvcompleta(){
-			return calcularQtdNos(raiz) >= calcularAlturaArvore(raiz) + 1 && calcularQtdNos(raiz) <= maximoDeNos();
+			int qtd = calcularQtdNos(raiz);
+			return qtd <= minimoDeNos() && qtd >= maximoDeNos();
 		}
 		
 		int arvcheia(){
@@ -164,6 +221,16 @@ class Arvore{
 		// void reduce(){
 
 		// }
+		
+		int is_complete_tree() {
+			if (isEmpty())
+				return 1;
+
+			int node_count = calcularQtdNos(raiz);
+			int min_node_count = pow(2, calcularAlturaArvore(raiz)) - 1;
+
+			return (node_count >= min_node_count);
+		}	
 
 		void preordem(No *no){// Raiz -> Esquerda -> Direita
 			
@@ -259,11 +326,25 @@ int main(){
 	Arvore *arvore= new Arvore();
 	arvore->criaNo('G');
 	arvore->criaNo('C');
-	arvore->criaNo('A');
-	arvore->criaNo('V');
-	arvore->criaNo('Z');
-	arvore->criaNo('D');
-	cout << "A altura da árvore é: " << arvore->calcularAlturaArvore(arvore->raiz) << "\n";
+
+	
+// 	arvore->criaNo('V');
+// 	arvore->criaNo('Z');
+
+	arvore->criaNo('H');
+// 	arvore->criaNo('B');
+// 	arvore->criaNo('C');
+// 	arvore->criaNo('A');
+// 	arvore->criaNo('E');
+// 	arvore->criaNo('F');
+
+
+	cout << "A altura da árvore é: ";// << arvore->calcularAlturaArvore(arvore->raiz) << "\n";
+	cout << "A quantidade de nós é: " << arvore->calcularQtdNos(arvore->raiz) << "\n";
+	cout << "Eh cheia?: " << arvore->arvcheia() << "\n";
+// 	cout << "Eh completa? " << arvore->arvcompleta() << "\n";
+	cout << "Eh completa? " << arvore->ehCompleta(arvore->raiz) << "\n";
+
 	arvore->preordem(arvore->raiz);
 	arvore->limpar(arvore->raiz);
 }
