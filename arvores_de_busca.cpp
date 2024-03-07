@@ -17,6 +17,7 @@ int randint(int min, int max) {
     return random_number;
 }
 
+
 using namespace std;
 
 // Definindo o tipo Item e a classe No antes de sua utilização
@@ -75,6 +76,21 @@ class Arvore{
 			
 			return false;
 		}
+        No* buscaNAORecursiva(Item procurado){
+            
+            No* atual = raiz;
+            while(atual !=NULL){
+
+                if(atual->valor == procurado)
+                    return atual;
+                else if(procurado > atual->valor){
+                    atual = atual->right;
+                }else if(procurado < atual->valor ){
+                    atual = atual->left;
+                }
+            }
+            return NULL;
+        }
 
         No* buscaRecursiva(No *arvore, Item procurado){
             
@@ -131,6 +147,71 @@ class Arvore{
 			No *novo= new No(item);
 			inserirSemRecursao(novo);
 		} 
+        No* removerNo(No* , Item valor){
+            /*minimo da direita e maximo da esquerda
+
+                remover()
+
+                se ( no nao tiver filhos)
+                    limpe no
+                    atualize o potneiro dele no pai como NULL
+
+                senao se ( so tiver um filho folha )
+
+                    se a direita NAO é nula:
+                        pegue minimo da dreita
+                        limpe o minimo da direita (lembre de deixalo como NULL)
+                        troque o valor do no a ser "removido" pelo valor 
+
+                    se a esquerda NAO é nula:
+                        pegue maximo da esquerda
+                        limpe o minimo da direita (lembre de deixalo como NULL)
+                        troque o valor do no a ser "removido" pelo valor 
+            
+                senao (se tiver dois filhos)
+
+                    pegue minimo da dreita ou pegue maximo da esquerda
+                    limpe o escolhido (lembre de deixalo como NULL)
+                    troque o valor do no a ser "removido" pelo valor 
+                    
+
+
+
+            */
+        }
+
+
+
+        No* calcularMinimo(No *arvore){
+
+            if(arvore == NULL)
+                return NULL;
+
+            while(arvore->left != NULL)
+                arvore = arvore->left;
+
+            return arvore;
+
+            // if(arvore == NULL)
+            //     return NULL;
+
+            // else if(arvore->left == NULL)
+            //     return arvore;
+            // else 
+            //     return calcularMinimo(arvore->left);
+        }
+
+        No* calcularMaximo(No *arvore){
+
+            if(arvore == NULL)
+                return NULL;
+
+            else if(arvore->right == NULL)
+                return arvore;
+            else 
+                return calcularMinimo(arvore->right);
+        }
+
 		
 		void inserirSemRecursao(No *novo){
 			
@@ -363,11 +444,20 @@ int main(){
 	cout << "Eh cheia?: " << arvore->arvcheia() << "\n";
 // 	cout << "Eh completa? " << arvore->arvcompleta() << "\n";
 	cout << "Eh completa? " << arvore->ehCompleta(arvore->raiz) << "\n";
-    No *busca = arvore->buscaRecursiva(arvore->raiz,'H');
+    No *busca = arvore->calcularMinimo(arvore->raiz);
     if(busca == NULL)
         cout << "Nao achei :((()))";
     else 
-        cout << "achei";
+        cout << "achei é o "<<busca->valor;
 	arvore->preordem(arvore->raiz);
 	arvore->limpar(arvore->raiz);
 }
+// #include <stack>
+// void preordemsem(No *arv){
+
+//     stack<No*> p;
+//     if(arv != NULL){
+//         p.push(arv);
+//         while(!p.empty()
+//     }
+// }
