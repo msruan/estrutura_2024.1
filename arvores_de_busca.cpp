@@ -76,6 +76,23 @@ class Arvore{
 			return false;
 		}
 
+        No* buscaRecursiva(No *arvore, Item procurado){
+            
+            if(arvore == NULL)
+                return NULL;
+
+            if(arvore->valor == procurado)
+                return arvore;
+
+            if(procurado > arvore->valor){
+                return buscaRecursiva(arvore->right, procurado);
+            }
+
+            else if(procurado < arvore->valor){
+                return buscaRecursiva(arvore->left, procurado);
+            }
+        }
+
 
 		int ehCompleta(No* no) {
 			
@@ -283,6 +300,8 @@ class Arvore{
 			delete(no);
 			no = NULL;
 		}
+
+        
 };
 
 #define BLACK "\033[0;30m"
@@ -344,7 +363,11 @@ int main(){
 	cout << "Eh cheia?: " << arvore->arvcheia() << "\n";
 // 	cout << "Eh completa? " << arvore->arvcompleta() << "\n";
 	cout << "Eh completa? " << arvore->ehCompleta(arvore->raiz) << "\n";
-
+    No *busca = arvore->buscaRecursiva(arvore->raiz,'H');
+    if(busca == NULL)
+        cout << "Nao achei :((()))";
+    else 
+        cout << "achei";
 	arvore->preordem(arvore->raiz);
 	arvore->limpar(arvore->raiz);
 }
