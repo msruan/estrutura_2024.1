@@ -147,39 +147,125 @@ class Arvore{
 			No *novo= new No(item);
 			inserirSemRecursao(novo);
 		} 
-        No* removerNo(No* , Item valor){
-            /*minimo da direita e maximo da esquerda
 
-                remover()
+        void removerNo(No*& no, Item procurado){
 
-                se ( no nao tiver filhos)
-                    limpe no
-                    atualize o potneiro dele no pai como NULL
+			if(no == NULL)
+				throw new std::runtime_error("Valor não encontrado!");
 
-                senao se ( so tiver um filho folha )
+			if(no->valor == procurado){
 
-                    se a direita NAO é nula:
-                        pegue minimo da dreita
-                        limpe o minimo da direita (lembre de deixalo como NULL)
-                        troque o valor do no a ser "removido" pelo valor 
 
-                    se a esquerda NAO é nula:
-                        pegue maximo da esquerda
-                        limpe o minimo da direita (lembre de deixalo como NULL)
-                        troque o valor do no a ser "removido" pelo valor 
+				//minimo da direita e maximo da esquerda
+
+                //remover()
+				
+				if(ehFolha(no)){
+					free(no);
+					no = NULL;
+				}
+				else  if(tem1Filhos(no)){
+					if(! no->right==NULL){
+						
+						Item item = calcularMinimoNOVA(no->right);
+						no->valor = item;
+					}
+					else if(! no->left==NULL){
+						
+						Item item = calcularMaximoNOVA(no->left);
+						no->valor = item;
+					}
+					
+				}
+				else  if(tem2filhos(no)){
+						
+					Item item = calcularMinimoNOVA(no->right);
+					no->valor = item;
+
+
+                // se ( no nao tiver filhos)
+                //     limpe no
+                //     atualize o potneiro dele no pai como NULL
+
+                // senao se ( so tiver um filho folha )
+
+                //     se a direita NAO é nula:
+                //         pegue minimo da dreita
+                //         limpe o minimo da direita (lembre de deixalo como NULL)
+                //         troque o valor do no a ser "removido" pelo valor 
+
+                //     se a esquerda NAO é nula:
+                //         pegue maximo da esquerda
+                //         limpe o minimo da direita (lembre de deixalo como NULL)
+                //         troque o valor do no a ser "removido" pelo valor 
             
-                senao (se tiver dois filhos)
+                // senao (se tiver dois filhos)
 
-                    pegue minimo da dreita ou pegue maximo da esquerda
-                    limpe o escolhido (lembre de deixalo como NULL)
-                    troque o valor do no a ser "removido" pelo valor 
+                //     pegue minimo da dreita ou pegue maximo da esquerda
+                //     limpe o escolhido (lembre de deixalo como NULL)
+                //     troque o valor do no a ser "removido" pelo valor 
                     
+            	
+					}
+			}else{
+				
+			}
+        }
+		Item calcularMaximoNOVA(No *&arvore){
 
+            // if(arvore == NULL)
+            //     return NULL;
+			// No* atual = arvore;
 
+            // while(atual->left != NULL)
+            //     atual = atual->left;
+			// Item item = atual->valor;
+			// free(atual);
+			// arvore = NULL;
+            // return ;
 
-            */
+            if(arvore == NULL)
+                return 0;
+
+            else if(arvore->right == NULL){
+
+				Item item = arvore->valor;
+				free(arvore);
+				arvore = NULL;
+                return item;
+			}
+
+            else 
+                return calcularMaximoNOVA(arvore->right);
         }
 
+		Item calcularMinimoNOVA(No *&arvore){
+
+            // if(arvore == NULL)
+            //     return NULL;
+			// No* atual = arvore;
+
+            // while(atual->left != NULL)
+            //     atual = atual->left;
+			// Item item = atual->valor;
+			// free(atual);
+			// arvore = NULL;
+            // return ;
+
+            if(arvore == NULL)
+                return NULL;
+
+            else if(arvore->left == NULL){
+
+				Item item = arvore->valor;
+				free(arvore);
+				arvore = NULL;
+                return item;
+			}
+
+            else 
+                return calcularMinimoNOVA(arvore->left);
+        }
 
 
         No* calcularMinimo(No *arvore){

@@ -1,0 +1,7 @@
+- Refazer tudo utilizando C
+- A função removerNo tá utilizando referências de ponteiros (*&) para resolver a questão de tornar o ponteiro nulo
+depois de liberá-lo, mas isso deve ser algo facilmente contornável (passar o pai como parâmetro ou checar o retorno do filho, etc)
+- No momento, removerNo só funciona caso o no seja o primeiro, não tá fazendo um while
+- Organizar o código e se possível, refatorá-lo
+- Fazer percurso por extensão (Prov tem no git do germano caso n tanke, mas utiliza filas)
+- Pegar o código do Patro e fazer o percurso EDV (usa pilhas pra fazer os percursos padrões (inordem, preordem...))
