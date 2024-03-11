@@ -1,17 +1,16 @@
+#ifndef ARVORE_HPP
+#define ARVORE_HPP
+
 #include <stdio.h>
 #include <string.h>
 #include <math.h>
+#include <time.h>
 #include <iostream>
 #include <stdlib.h>
-#include <time.h>
-#define RESET "\033[0m"
+#include "colors.h"
 
 const char* obterCor(int numero);
 const char* obterCorAleatoria();
-int randint(int min, int max);
-int max(int a, int b);
-
-
 
 #define Item char
 using namespace std;
@@ -437,73 +436,7 @@ class Arvore{
         
 };
 
-#define BLACK "\033[0;30m"
-#define RED "\033[0;31m"
-#define GREEN "\033[0;32m"
-#define YELLOW "\033[0;33m"
-#define BLUE "\033[0;34m"
-#define PURPLE "\033[0;35m"
-#define CYAN "\033[0;36m"
-#define WHITE "\033[0;37m"
 
-const char* obterCorAleatoria() {
-    return obterCor(randint(1,8));
-}
-
-
-const char* obterCor(int numero) {
-	
-    switch(numero) {
-        case 1:
-            return BLACK;
-        case 2:
-            return RED;
-        case 3:
-            return GREEN;
-        case 4:
-            return YELLOW;
-        case 5:
-            return BLUE;
-        case 6:
-            return PURPLE;
-        case 7:
-            return CYAN;
-        case 8:
-        default:
-            return WHITE; // Retorna uma string vazia se o número não corresponder a nenhuma cor
-    }
-}
-int main(){
-    srand(time(NULL));
-	Arvore *arvore= new Arvore();
-	arvore->criaNo('G');
-	arvore->criaNo('C');
-
-	
-// 	arvore->criaNo('V');
-// 	arvore->criaNo('Z');
-
-	arvore->criaNo('H');
-// 	arvore->criaNo('B');
-// 	arvore->criaNo('C');
-// 	arvore->criaNo('A');
-// 	arvore->criaNo('E');
-// 	arvore->criaNo('F');
-
-
-	cout << "A altura da árvore é: ";// << arvore->calcularAlturaArvore(arvore->raiz) << "\n";
-	cout << "A quantidade de nós é: " << arvore->calcularQtdNos(arvore->raiz) << "\n";
-	cout << "Eh cheia?: " << arvore->arvcheia() << "\n";
-// 	cout << "Eh completa? " << arvore->arvcompleta() << "\n";
-	cout << "Eh completa? " << arvore->ehCompletaComRecursao(arvore->raiz) << "\n";
-    No *busca = arvore->calcularMinimo(arvore->raiz);
-    if(busca == NULL)
-        cout << "Nao achei :((()))";
-    else 
-        cout << "achei é o "<<busca->valor;
-	arvore->preordem(arvore->raiz);
-	arvore->limpar(arvore->raiz);
-}
 // #include <stack>
 // void preordemsem(No *arv){
 
@@ -514,19 +447,4 @@ int main(){
 //     }
 // }
 
-
-int randint(int min, int max) {
-    // Inicializa a semente para a função rand()
-    
-    // Gera um número aleatório no intervalo [min, max]
-    int random_number = min + rand() % (max - min + 1);
-    return random_number;
-}
-
-int max(int a, int b){
-
-	if(a > b)
-		return a;
-	else
-		return b;
-}
+#endif
