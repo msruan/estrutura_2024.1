@@ -4,19 +4,17 @@ using namespace std;
 int main(){
     srand(time(NULL));
 	Arvore *arvore= new Arvore();
-	arvore->criaNo('G');
-	arvore->criaNo('C');
-
-	
+	// arvore->criaNo('G');
+	// arvore->criaNo('C');
 // 	arvore->criaNo('V');
 // 	arvore->criaNo('Z');
-
-	arvore->criaNo('H');
+	// arvore->criaNo('H');
 // 	arvore->criaNo('B');
-// 	arvore->criaNo('C');
-// 	arvore->criaNo('A');
-// 	arvore->criaNo('E');
-// 	arvore->criaNo('F');
+	arvore->criaNo('C');
+	arvore->criaNo('A');
+	arvore->criaNo('E');
+	arvore->criaNo('F');
+	arvore->criaNo('D');
 
 
 	cout << "A altura da árvore é: ";// << arvore->calcularAlturaArvore(arvore->raiz) << "\n";
@@ -24,6 +22,7 @@ int main(){
 	cout << "Eh cheia?: " << arvore->arvcheia() << "\n";
 // 	cout << "Eh completa? " << arvore->arvcompleta() << "\n";
 	cout << "Eh completa? " << arvore->ehCompletaComRecursao(arvore->raiz) << "\n";
+	arvore->raiz = arvore->removerNo2(arvore->raiz,'C');
     No *busca = arvore->calcularMinimo(arvore->raiz);
     if(busca == NULL)
         cout << "Nao achei :((()))";

@@ -9,9 +9,6 @@
 #include <stdlib.h>
 #include "colors.h"
 
-const char* obterCor(int numero);
-const char* obterCorAleatoria();
-
 #define Item char
 using namespace std;
 
@@ -137,6 +134,50 @@ class Arvore{
 			inserirSemRecursao(novo);
 		} 
 
+		No *removerNo2(No* no, Item procurado){
+
+			if(no == NULL)
+				return NULL;
+
+			if(no->valor == procurado){
+
+
+				//minimo da direita e maximo da esquerda
+
+                //remover()
+				
+				if(ehFolha(no)){
+					free(no);
+					return NULL;
+				}
+
+				else  if(temUmFilho(no)){
+
+					if(! no->right==NULL){
+						
+						Item item = calcularMinimoNOVA(no->right);
+						no->valor = item;
+					}
+					else if(! no->left==NULL){
+						
+						Item item = calcularMaximoNOVA(no->left);
+						no->valor = item;
+					}
+					
+				}
+				else  if(temDoisFilhos(no)){
+						
+					Item item = calcularMinimoNOVA(no->right);
+					no->valor = item;
+				}
+			}else if(procurado > no->valor){
+				no->right = removerNo2(no->right,procurado);
+			}
+			else{
+				no->left = removerNo2(no->left,procurado);
+			}
+		}
+
         void removerNo(No*& no, Item procurado){
 
 			if(no == NULL)
@@ -144,9 +185,7 @@ class Arvore{
 
 			if(no->valor == procurado){
 
-
 				//minimo da direita e maximo da esquerda
-
                 //remover()
 				
 				if(ehFolha(no)){
@@ -171,35 +210,12 @@ class Arvore{
 					Item item = calcularMinimoNOVA(no->right);
 					no->valor = item;
 
-
-                // se ( no nao tiver filhos)
-                //     limpe no
-                //     atualize o potneiro dele no pai como NULL
-
-                // senao se ( so tiver um filho folha )
-
-                //     se a direita NAO é nula:
-                //         pegue minimo da dreita
-                //         limpe o minimo da direita (lembre de deixalo como NULL)
-                //         troque o valor do no a ser "removido" pelo valor 
-
-                //     se a esquerda NAO é nula:
-                //         pegue maximo da esquerda
-                //         limpe o minimo da direita (lembre de deixalo como NULL)
-                //         troque o valor do no a ser "removido" pelo valor 
-            
-                // senao (se tiver dois filhos)
-
-                //     pegue minimo da dreita ou pegue maximo da esquerda
-                //     limpe o escolhido (lembre de deixalo como NULL)
-                //     troque o valor do no a ser "removido" pelo valor 
-                    
-            	
-					}
+				}
 			}else{
 				
 			}
         }
+
 		Item calcularMaximoNOVA(No *&arvore){
 
             // if(arvore == NULL)
@@ -261,6 +277,7 @@ class Arvore{
 
             if(arvore == NULL)
                 return NULL;
+			
 
             while(arvore->left != NULL)
                 arvore = arvore->left;
@@ -447,4 +464,28 @@ class Arvore{
 //     }
 // }
 
+
+
+// se ( no nao tiver filhos)
+                //     limpe no
+                //     atualize o potneiro dele no pai como NULL
+
+                // senao se ( so tiver um filho folha )
+
+                //     se a direita NAO é nula:
+                //         pegue minimo da dreita
+                //         limpe o minimo da direita (lembre de deixalo como NULL)
+                //         troque o valor do no a ser "removido" pelo valor 
+
+                //     se a esquerda NAO é nula:
+                //         pegue maximo da esquerda
+                //         limpe o minimo da direita (lembre de deixalo como NULL)
+                //         troque o valor do no a ser "removido" pelo valor 
+            
+                // senao (se tiver dois filhos)
+
+                //     pegue minimo da dreita ou pegue maximo da esquerda
+                //     limpe o escolhido (lembre de deixalo como NULL)
+                //     troque o valor do no a ser "removido" pelo valor 
+                    
 #endif
