@@ -4,31 +4,33 @@ using namespace std;
 int main(){
     srand(time(NULL));
 	Arvore *arvore= new Arvore();
-	// arvore->criaNo('G');
-	// arvore->criaNo('C');
-// 	arvore->criaNo('V');
-// 	arvore->criaNo('Z');
-	// arvore->criaNo('H');
-// 	arvore->criaNo('B');
-	arvore->criaNo('C');
-	arvore->criaNo('A');
-	arvore->criaNo('E');
-	arvore->criaNo('F');
-	arvore->criaNo('D');
+	
+	// arvore->criarNos('G','C','V','Z','H','B');
 
+	arvore->criarNos('C','A','E','F','D');
 
-	cout << "A altura da árvore é: ";// << arvore->calcularAlturaArvore(arvore->raiz) << "\n";
-	cout << "A quantidade de nós é: " << arvore->calcularQtdNos(arvore->raiz) << "\n";
-	cout << "Eh cheia?: " << arvore->arvcheia() << "\n";
-// 	cout << "Eh completa? " << arvore->arvcompleta() << "\n";
-	cout << "Eh completa? " << arvore->ehCompletaComRecursao(arvore->raiz) << "\n";
-	arvore->raiz = arvore->removerNo2(arvore->raiz,'C');
-    No *busca = arvore->calcularMinimo(arvore->raiz);
-    if(busca == NULL)
-        cout << "Nao achei :((()))";
-    else 
-        cout << "achei é o "<<busca->valor;
-	arvore->preordem(arvore->raiz);
+	
+
+	// arvore->raiz = arvore->removerNo2(arvore->raiz,'C');
+
+	// arvore->preordem(arvore->raiz);
+	// arvore->removerNo(arvore->raiz,'G');
+    // No *busca = arvore->buscaRecursiva(arvore->raiz,'G');
+    // if(busca == NULL)
+    //     cout << "Nao achei :/";
+    // else 
+    //     cout << "achei :P"<<busca->valor;
+
+	arvore->posordem(arvore->raiz);
+	arvore->posordemComPilha();
+	cout << endl;
+	arvore->extensao();
+	// arvore->preordemComPilha();
 	arvore->limpar(arvore->raiz);
+
+	// cout << "A altura da árvore é: ";// << arvore->calcularAlturaArvore(arvore->raiz) << "\n";
+	// cout << "A quantidade de nós é: " << arvore->calcularQtdNos(arvore->raiz) << "\n";
+	// cout << "Eh cheia?: " << arvore->arvcheia() << "\n";
+	// cout << "Eh completa? " << arvore->ehCompletaComRecursao(arvore->raiz) << "\n";
 }
 
